@@ -63,15 +63,15 @@ int main(){
         ll parent = pq.top().first;
         ll pdist = pq.top().second;
         pq.pop();
-		cout << parent << endl;
+		// cout << parent << endl;
         if(visited[parent] == 0){
             visited[parent] = 1;
             h_value[parent] = pdist;
             for(int i = 0 ; i < n ; i++){
                 if(graph[parent][i] != GMAX && i != parent ){
                     if(h_value[i] > pdist + graph[parent][i] && visited[i] == 0){
-                        h_value[i] = pdist + graph[parent][i];
-						cout << i << " " << h_value[i] << endl;
+                        h_value[i] = pdist + graph[parent][i];	
+						// cout << i << " " << h_value[i] << endl;
                         // cout << parent << " " << i << " " << h_value[i] << endl;
                         pq.push(pll(i,h_value[i]));    
                     }
@@ -80,10 +80,10 @@ int main(){
             }
         }
     }
-	for(auto e: h_value){
-		cout << e << " ";
-	}
-	cout << endl;
+	// for(auto e: h_value){
+	// 	cout << e << " ";
+	// }
+	// cout << endl;
 	
 	visited = vll(n,0);
     vll unlocked(n,0);
