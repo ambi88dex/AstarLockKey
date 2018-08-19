@@ -23,12 +23,19 @@ class AstarQ{
 		ll fcost;
 		ll gcost;
 		int parent_node;
-
+		vll path;
 		AstarQ(int _cn, ll _f, ll _g,ll _pn):current_node(_cn),fcost(_f),parent_node(_pn),gcost(_g){}
-		AstarQ(const AstarQ& elem):current_node(elem.current_node),fcost(elem.fcost),parent_node(elem.parent_node),gcost(elem.gcost){}
+		AstarQ(int _cn, ll _f, ll _g,ll _pn,vll _cp):current_node(_cn),fcost(_f),parent_node(_pn),gcost(_g),path(_cp){}
+		AstarQ(const AstarQ& elem):current_node(elem.current_node),fcost(elem.fcost),parent_node(elem.parent_node),gcost(elem.gcost),path(elem.path){}
 
 		friend ostream& operator<<(ostream& o, const AstarQ& elem){
-			o << elem.current_node << " , " << elem.fcost << " , " << elem.gcost << " , " << elem.parent_node;
+			o << elem.current_node << " , " << elem.fcost << " , " << elem.gcost << " , " << elem.parent_node << endl;
+			if(elem.path.size() >= 1){
+				o << elem.path[0];
+				for(int i = 1; i < elem.path.size(); i++){
+					o << " , " << elem.path[i];
+				}
+			}							
 			return o;
 		}
 };
@@ -138,30 +145,23 @@ int main(){
 	AstarQ init = AstarQ(SOURCE,h_value[SOURCE],0,-1);
 	// cout << init << endl;
 	// cout << init.current_node <<  " " << init.fcost << " " << init.gcost << " " << init.parent_node << endl; 
+	init.path.push_back(SOURCE);
+	cout << "Init equals " << endl;
+	cout << init << endl;
 	apq.push(init);
-	deque<ll> path;
 	int current_node  = -1;
-	while(!apq.empty() && apq.top().current_node != n - 1){
+	while(!apq.empty() && apq.top().current_node != DESTINATION){
 		
 		current_node = apq.top().current_node;
 		ll fcost = apq.top().fcost;
 		ll gcost = apq.top().gcost;
 		int parent_node = apq.top().parent_node;
-		
-		cout << apq.top() <<  " " << apq.size() << endl;
+		cout << apq.top();
 
 		
 		
 		
 		if(unlocked[current_node] == 1){
-			if(current_node != SOURCE){
-				if(path.back() != parent_node){
-					while(!path.empty() && path.back() != parent_node){
-						path.pop_back();
-					}
-				}				
-			}
-			path.push_back(current_node);
 			if(visited[current_node] == 0){
 				for(int i = 0 ; i < n; i++){
 					if(keys[current_node][i]){
@@ -169,14 +169,16 @@ int main(){
 					}
 				}
 			}
-			
+			vll current_path(apq.top().path);
 			apq.pop();
 			for(int i = 0 ; i < n ; i++){
 				if(graph[current_node][i] != GMAX){
 					ll next_node_gcost = gcost + graph[current_node][i];
 					if((visited[i] == 0) || (visited[i] != 0 && unlocked[i] == 1)){
 						cout << i << " inserted ";
-						apq.push(AstarQ(i,next_node_gcost + h_value[i],next_node_gcost,current_node));				
+						vll next_path(current_path);
+						next_path.push_back(i);
+						apq.push(AstarQ(i,next_node_gcost + h_value[i],next_node_gcost,current_node,next_path));				
 					}
 				}
 			}			
@@ -187,21 +189,21 @@ int main(){
 		cout << endl;
 		visited[current_node] ++;
 		printQ(apq);
+		cout << endl;
 
 	}
 	
 	ll distance = apq.top().gcost;
 	cout << "Total distance from the source to destination is " << distance << endl; 
 	cout << "The path taken to reach the destination is" << endl;
-	cout << path.front();
-	path.pop_front();
-
-	while(!path.empty()){
-		cout << " -> " << path.front();
-		path.pop_front();
+	vll path(apq.top().path);
+	if(path.size() >= 1){
+		cout << path[0];
+		for(int i = 1 ; i < path.size(); i++){
+			cout << " -> " << path[i];
+		}
 	}
-	cout << " -> " << DESTINATION;
-	cout << endl;
+	
 
 	while(!apq.empty()){
 		apq.pop();

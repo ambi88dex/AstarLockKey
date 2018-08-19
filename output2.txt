@@ -1,14 +1,56 @@
 10 15 6 0 
-0 , 10 , 0 , -1 1
-1 inserted 2 inserted 
-2 , 10 , 4 , 0 2
+Init equals 
+0 , 10 , 0 , -1
+0
+0 , 10 , 0 , -1
+01 inserted 2 inserted 
+Printing the queue
+2 , 10 , 4 , 0
+0 , 2
+1 , 20 , 5 , 0
+0 , 1
+done
 
-1 , 20 , 5 , 0 1
-0 inserted 3 inserted 
-0 , 20 , 10 , 1 2
-1 inserted 2 inserted 
-2 , 20 , 14 , 0 3
-0 inserted 3 inserted 
+2 , 10 , 4 , 0
+0 , 2
+Printing the queue
+1 , 20 , 5 , 0
+0 , 1
+done
+
+1 , 20 , 5 , 0
+0 , 10 inserted 3 inserted 
+Printing the queue
+0 , 20 , 10 , 1
+0 , 1 , 0
+3 , 1004 , 1004 , 1
+0 , 1 , 3
+done
+
+0 , 20 , 10 , 1
+0 , 1 , 01 inserted 2 inserted 
+Printing the queue
+2 , 20 , 14 , 0
+0 , 1 , 0 , 2
+1 , 30 , 15 , 0
+0 , 1 , 0 , 1
+3 , 1004 , 1004 , 1
+0 , 1 , 3
+done
+
+2 , 20 , 14 , 0
+0 , 1 , 0 , 20 inserted 3 inserted 
+Printing the queue
+3 , 20 , 20 , 2
+0 , 1 , 0 , 2 , 3
+0 , 28 , 18 , 2
+0 , 1 , 0 , 2 , 0
+1 , 30 , 15 , 0
+0 , 1 , 0 , 1
+3 , 1004 , 1004 , 1
+0 , 1 , 3
+done
+
 Total distance from the source to destination is 20
 The path taken to reach the destination is
-0 -> 1 -> 0 -> 2-> 3
+0 -> 1 -> 0 -> 2 -> 3
